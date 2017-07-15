@@ -1,0 +1,82 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
+    }
+}
+
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.0.9"
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'java'
+apply plugin: "com.matthewprenger.cursegradle"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+version = mc_version + '-' + version_major + '.' + version_minor + '.' + version_patch
+group = package_group
+archivesBaseName = mod_id
+
+minecraft {
+    version = mc_version + "-" + forge_version
+    runDir = "run"
+    //    makeObfSourceJar = false
+    //    useDepAts = true
+
+    mappings = mappings_version
+}
+
+jar {
+    classifier = ''
+    manifest.mainAttributes(
+            "Built-By": "${author}",
+            "Implementation-Title": project.name,
+            "Implementation-Version": project.version,
+            "Built-On": "${mc_version}-${forge_version}"
+    )
+}
+
+artifacts {
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include "mcmod.info"
+
+        // replace version and mcversion
+        expand "version": project.version, "mcversion": project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "mcmod.info"
+    }
+}
+
+curseforge {
+    apiKey = project.hasProperty('api_token') ? project.api_token : '0'
+    project {
+        id = '272144'
+        changelog = file('src/main/resources/changelog.md')
+        changelogType = 'markdown'
+        releaseType = 'release'
+        addGameVersion '1.12'
+        relations {
+            requiredLibrary 'thedragonlib'
+        }
+    }
+}
