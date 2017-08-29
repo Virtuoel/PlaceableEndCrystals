@@ -17,7 +17,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.thedragonteam.pec.PEC;
 import net.thedragonteam.pec.Reference;
+import net.thedragonteam.pec.client.gui.GuiHandler;
 import net.thedragonteam.thedragonlib.util.LogHelper;
 
 import java.util.Arrays;
@@ -78,19 +80,16 @@ public class WorldEventHandler {
 
     @SubscribeEvent
     public static void onEntityInteraction(PlayerInteractEvent.EntityInteractSpecific e) {
-        if (e.getWorld().isRemote) return;
         if (e.getTarget() instanceof EntityEnderCrystal) {
-            EntityEnderCrystal enderCrystal = (EntityEnderCrystal) e.getTarget();
-            enderCrystal.setAlwaysRenderNameTag(false);
+            e.getEntityPlayer().openGui(PEC.instance, GuiHandler.PEC_GUI, e.getWorld(), (int) e.getLocalPos().x, (int) e.getLocalPos().y, (int) e.getLocalPos().z);
+      //      PECPacketHandler.INSTANCE.sendToServer(new EnderCrystalData(e.getWorld(), e.getTarget().getEntityId()));
         }
     }
 
     @SubscribeEvent
     public static void onEntityAttacked(AttackEntityEvent e) {
         if (debugMode) {
-            if (isNull(e.getTarget())) return;
-            if (isNull(e.getEntityPlayer())) return;
-            if (e.getTarget().world.isRemote) return;
+            if (isNull(e.getTarget()) || isNull(e.getEntityPlayer()) || e.getTarget().world.isRemote) return;
             if (e.getTarget() instanceof EntityEnderCrystal) {
                 e.getTarget().setDead();
                 if (e.getTarget().isDead) {

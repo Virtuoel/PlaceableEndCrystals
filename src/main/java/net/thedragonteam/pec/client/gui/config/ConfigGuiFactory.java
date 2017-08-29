@@ -1,4 +1,4 @@
-package net.thedragonteam.pec.client.gui;
+package net.thedragonteam.pec.client.gui.config;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

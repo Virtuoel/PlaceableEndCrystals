@@ -2,7 +2,7 @@
  * Copyright (c) TheDragonTeam 2016-2017.
  */
 
-package net.thedragonteam.pec.client.gui;
+package net.thedragonteam.pec.client.gui.config;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.text.TextComponentTranslation;
