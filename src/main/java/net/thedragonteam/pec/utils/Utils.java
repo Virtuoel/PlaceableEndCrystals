@@ -16,6 +16,10 @@ public class Utils {
         return is(a, object) && is(b, object) && is(c, object);
     }
 
+    public static boolean is(String[] abc, String object) {
+        return is(abc[0], object) && is(abc[1], object) && is(abc[2], object);
+    }
+
     public static boolean isNull(Object a) {
         return a == null;
     }

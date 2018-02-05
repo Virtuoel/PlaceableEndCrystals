@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemEndCrystal;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -17,11 +16,13 @@ import net.thedragonteam.pec.Reference;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.minecraft.util.text.TextFormatting.LIGHT_PURPLE;
+
 @EventBusSubscriber(value = Side.CLIENT, modid = Reference.MODID)
 @SideOnly(Side.CLIENT)
 public class ClientEventHandler {
+
     private static final KeyBinding keyBindSneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
-    private static final KeyBinding keyBindSprint = Minecraft.getMinecraft().gameSettings.keyBindSprint;
 
     @SubscribeEvent
     public static void onEntityInteraction(ItemTooltipEvent e) {
@@ -37,9 +38,6 @@ public class ClientEventHandler {
                 );
             } else {
                 addToolTip(tooltip, "Press " + keyBindSneak.getDisplayName() + " for more information");
-                addToolTip(tooltip,
-                        "Press " + keyBindSneak.getDisplayName() + " + " + keyBindSprint.getDisplayName() + " to get a detailed description"
-                );
             }
         }
     }
@@ -50,14 +48,8 @@ public class ClientEventHandler {
         tooltip.add(text.getFormattedText());
     }
 
-    private static ITextComponent addEvent(String line, ClickEvent event) {
-        TextComponentString text = new TextComponentString(line);
-        text.getStyle().setClickEvent(event);
-        return text;
-    }
-
     private static void addToolTip(List<String> tooltip, String line) {
-        addToolTip(tooltip, line, null);
+        addToolTip(tooltip, LIGHT_PURPLE + line, null);
     }
 
     private static void addToolTip(List<String> tooltip, String... lines) {
