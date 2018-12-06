@@ -1,21 +1,16 @@
 [
-  {
-    "modid": "pec",
-    "name": "PEC",
-    "description": "PEC allows end crystals to be placed almost everywhere",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://minecraft.curseforge.com/projects/pec",
-    "updateUrl": "https://minecraft.curseforge.com/projects/pec/files",
-    "authorList": [
-      "sokratis12GR"
-    ],
-    "credits": "",
-    "logoFile": "https://sokratis12gr.com/uploads/pec_logo.png",
-    "screenshots": [],
-    "parent": "",
-    "dependencies": [
-      "minecraftforge"
-    ]
-  }
+	{
+		"modid": "placeableendcrystals",
+		"name": "PlaceableEndCrystals",
+		"description": "A mod that allows End Crystals to be placed anywhere. Placement blacklisting and whitelisting is available in the config.",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
+		"url": "",
+		"updateUrl": "",
+		"authorList": ["Virtuoel"],
+		"credits": "Code by Virtuoel. Original mod by sokratis12GR.",
+		"logoFile": "",
+		"screenshots": [],
+		"dependencies": []
+	}
 ]

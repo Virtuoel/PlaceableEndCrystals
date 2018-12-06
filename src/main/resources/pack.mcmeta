@@ -1,6 +1,7 @@
 {
-    "pack": {
-        "description": "Resources used for PEC",
-        "pack_format": 3
-    }
+	"pack":
+	{
+		"description": "PlaceableEndCrystals resources",
+		"pack_format": 3
+	}
 }
