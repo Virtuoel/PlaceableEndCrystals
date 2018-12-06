@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 
-@Mod(modid = PlaceableEndCrystals.MOD_ID, version = "@VERSION@", clientSideOnly = true, certificateFingerprint = "@FINGERPRINT@")
+@Mod(modid = PlaceableEndCrystals.MOD_ID, version = "@VERSION@", certificateFingerprint = "@FINGERPRINT@")
 public class PlaceableEndCrystals
 {
 	public static final String MOD_ID = "placeableendcrystals";
