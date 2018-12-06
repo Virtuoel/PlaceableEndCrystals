@@ -143,21 +143,40 @@ public class ItemRegistrar
 				if(PlaceableEndCrystalsConfig.allowBasePlateToggle && !worldIn.isRemote && handIn == EnumHand.MAIN_HAND && playerIn.isSneaking())
 				{
 					ItemStack stack = playerIn.getHeldItemMainhand().copy();
-					if(!stack.hasTagCompound() || !stack.getTagCompound().hasKey("HasBasePlate"))
+					if(stack.hasTagCompound())
+					{
+						NBTTagCompound compound = stack.getTagCompound();
+						if(compound.hasKey("Placing"))
+						{
+							compound.removeTag("Placing");
+							if(compound.isEmpty())
+							{
+								stack.setTagCompound(null);
+							}
+							return super.onItemRightClick(worldIn, playerIn, handIn);
+						}
+						
+						if(compound.hasKey("HasBasePlate"))
+						{
+							compound.removeTag("HasBasePlate");
+							if(compound.isEmpty())
+							{
+								stack.setTagCompound(null);
+							}
+							playerIn.sendStatusMessage(new TextComponentTranslation("placeableendcrystals.disabled_base_plate"), true);
+						}
+						else
+						{
+							stack.setTagInfo("HasBasePlate", new NBTTagByte((byte) 1));
+							playerIn.sendStatusMessage(new TextComponentTranslation("placeableendcrystals.enabled_base_plate"), true);
+						}
+					}
+					else
 					{
 						stack.setTagInfo("HasBasePlate", new NBTTagByte((byte) 1));
 						playerIn.sendStatusMessage(new TextComponentTranslation("placeableendcrystals.enabled_base_plate"), true);
 					}
-					else if(stack.hasTagCompound())
-					{
-						NBTTagCompound compound = stack.getTagCompound();
-						compound.removeTag("HasBasePlate");
-						if(compound.isEmpty())
-						{
-							stack.setTagCompound(null);
-						}
-						playerIn.sendStatusMessage(new TextComponentTranslation("placeableendcrystals.disabled_base_plate"), true);
-					}
+					
 					playerIn.inventory.mainInventory.set(playerIn.inventory.currentItem, stack);
 				}
 				return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
@@ -190,7 +209,7 @@ public class ItemRegistrar
 						
 						if(list.isEmpty())
 						{
-							if(PlaceableEndCrystalsConfig.allowSettingBeamTarget)
+							if(PlaceableEndCrystalsConfig.allowSettingBeamTarget || PlaceableEndCrystalsConfig.allowBasePlateToggle)
 							{
 								itemstack.setTagInfo("Placing", new NBTTagByte((byte) 1));
 							}
